@@ -15,11 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from crm.views import first_page
-from price.views import price
+from crm.views import first_page, thanks_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', first_page, name='first'),
-    path('price/', price, name='price')
+    path('thanks/', thanks_page, name='thank')
 ]
