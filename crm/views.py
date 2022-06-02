@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import SliderCrm
 from cms.forms import OrderForm
 from price.models import PriceCard, PriceTable
+from telebot.send_message import sendTelegram
 
 
 def first_page(request):
@@ -27,6 +28,7 @@ def thanks_page(request):
     phone = request.POST['phone']
     element = OrderForm(order_name=name, order_phone=phone)
     element.save()
+    sendTelegram(tg_name=name, tg_phone=phone)
     obj_dict = {
         'name': name,
         'phone': phone,
