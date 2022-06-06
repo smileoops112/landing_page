@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import SliderCrm
 from cms.forms import OrderForm
+from cms.models import Order
 from price.models import PriceCard, PriceTable
 from telebot.send_message import sendTelegram
 
@@ -26,7 +27,7 @@ def first_page(request):
 def thanks_page(request):
     name = request.POST['name']
     phone = request.POST['phone']
-    element = OrderForm(order_name=name, order_phone=phone)
+    element = Order(order_name=name, order_phone=phone)
     element.save()
     sendTelegram(tg_name=name, tg_phone=phone)
     obj_dict = {
@@ -34,4 +35,4 @@ def thanks_page(request):
         'phone': phone,
         'element': element
     }
-    return render(request, './thanks.html', context=obj_dict)
+    return render(request, './thanks.html', context={'name': name, })
